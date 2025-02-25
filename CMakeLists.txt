@@ -10,5 +10,6 @@ py2cpptest_init()
 
 # Demonstration of adding a test
 add_executable(test test.cpp)
-py2cpptest_add_test(test)
+py2cpptest_add_target(test)
+py2cpptest_add_py(test "module1.py" "module2.py")
 
