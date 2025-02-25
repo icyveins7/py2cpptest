@@ -1,5 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
+#include "general.h"
+
 #include <iostream>
 
 namespace py = pybind11;
@@ -21,14 +23,10 @@ int main(){
   // current working directory.
   // This is not the case if you just cmake a project,
   // since the .py file is probably not copied to the build folder
-  py::module module1 = py::module::import("module1");
-  py::object arange = module1.attr("arange");
-  py::object result = arange(0, 3);
+  auto result = pct::runPythonFunction("module1", "arange", 0, 3);
   py::print(py::str(result));
 
-  py::module module2 = py::module::import("module2");
-  py::object rand = module2.attr("rand");
-  py::object randresult = rand(5);
+  auto randresult = pct::runPythonFunction("module2", "rand", 5);
   py::print(py::str(randresult));
 
   return 0;
