@@ -47,8 +47,8 @@ function(py2cpptest_add_py testname)
     add_custom_command(
       TARGET ${testname} POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy
-      ${CMAKE_SOURCE_DIR}/${FILE}
-      ${CMAKE_BINARY_DIR}/${FILENAME}
+      ${CMAKE_CURRENT_SOURCE_DIR}/${FILE}
+      ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME}
     )
   endforeach()
 endfunction()
