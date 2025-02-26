@@ -12,6 +12,8 @@ namespace pct
 
 /**
  * @brief Runs a specified python function from a specified python module.
+ *        For nested modules like np.random.rand, use "numpy" as the module name
+ *        and "random.rand" as the function name.
  *
  * @tparam Args Variadic argument types
  * @param moduleName Python module file name
@@ -41,24 +43,15 @@ py::object runPythonFunction(
   size_t start = 0;
   size_t end = str.find(delimiter);
 
-  // This is the first part
-  // NOTE: we do this because we can't seem to cast module to object?
-  // printf("%s\n", str.substr(start, end - start).c_str()); // debug
-  py::object func = module.attr(str.substr(start, end - start).c_str());
-  start = end + 1;
-  end = str.find(delimiter, start);
-
-  // This is the rest of the parts
-  do {
-    // printf("do: %s, %zd, %zd\n", str.substr(start, end - start).c_str(), start, end); // debug
+  py::object func = module;
+  while (end != std::string::npos) {
+    printf("while: %s, %zd, %zd\n", str.substr(start, end - start).c_str(), start, end);
     func = func.attr(str.substr(start, end - start).c_str());
-
-    if (end == std::string::npos)
-      break;
-
     start = end + 1;
     end = str.find(delimiter, start);
-  } while (end != std::string::npos);
+  }
+  // Remember to call attr on the last substr
+  func = func.attr(str.substr(start, end - start).c_str());
 
   return func(args...);
 }
