@@ -33,6 +33,12 @@ function(py2cpptest_add_target testname)
 endfunction()
 
 # ====================================================
+function(py2cpptest_add_gtest testname)
+  py2cpptest_add_target(${testname})
+  target_sources(${testname} PRIVATE ${py2cpptest_DIR}/src/gtest_adapter.cpp)
+endfunction()
+
+# ====================================================
 function(py2cpptest_add_py testname)
   foreach(FILE IN LISTS ARGN)
     # Strip leading subdirectory name

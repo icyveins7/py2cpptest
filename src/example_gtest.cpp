@@ -33,14 +33,3 @@ TEST(ExampleGTest, AddArrs){
     EXPECT_EQ(zc[i], expected[i]);
   }
 }
-
-int main(int argc, char **argv){
-  testing::InitGoogleTest(&argc, argv);
-
-  // Start the interpreter!
-  printf("Starting the python interpreter for example_gtest...");
-  py::scoped_interpreter guard{};
-  printf("Done\n");
-
-  return RUN_ALL_TESTS();
-}

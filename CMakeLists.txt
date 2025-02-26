@@ -19,7 +19,7 @@ if (GTest_FOUND)
   enable_testing()
   add_executable(example_gtest src/example_gtest.cpp)
   target_link_libraries(example_gtest PRIVATE GTest::gtest)
-  py2cpptest_add_target(example_gtest)
+  py2cpptest_add_gtest(example_gtest)
   py2cpptest_add_py(example_gtest src/module1.py src/module2.py)
 
   include(GoogleTest)
