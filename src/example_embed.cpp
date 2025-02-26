@@ -45,5 +45,12 @@ int main(){
   }
   std::cout << std::endl;
 
+  py::array_t<double, py::array::c_style | py::array::forcecast> anotherrandresult = pct::runPythonFunction("numpy", "random.randn", 6);
+  std::vector<double> stdanotherrandresult = pct::fromNumpyArray(anotherrandresult);
+  for (auto i : stdanotherrandresult){
+    std::cout << i << " ";
+  }
+
+
   return 0;
 }
